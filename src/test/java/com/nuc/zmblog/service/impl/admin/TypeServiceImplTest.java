@@ -1,5 +1,6 @@
 package com.nuc.zmblog.service.impl.admin;
 
+import com.nuc.zmblog.mapper.TypeMapper;
 import com.nuc.zmblog.pojo.Type;
 import com.nuc.zmblog.request.TypeReq;
 import com.nuc.zmblog.service.admin.TypeService;
@@ -17,7 +18,8 @@ class TypeServiceImplTest {
     private TypeService typeService;
 
     @Resource
-    private UserService userService;
+    private TypeMapper typeMapper;
+
     @Test
     void saveType() {
     }
@@ -35,9 +37,9 @@ class TypeServiceImplTest {
 //        System.out.println(typeService.listType(2, 3));
 //        System.out.println(typeService);
 //        System.out.println(userService);
-
-        Type type = new Type(null,"3",null);
-        System.out.println(type);
+        System.out.println(typeMapper.selectByExample(null));
+//        Type type = new Type(null,"3",null);
+//        System.out.println(type);
     }
 
     @Test

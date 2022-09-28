@@ -67,6 +67,8 @@
   <sql id="Base_Column_List">
     type.id as type_id, type.`name` as `type_name`
   </sql>
+
+
   <select id="selectByExample" parameterType="com.nuc.zmblog.pojo.TypeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -92,6 +94,8 @@
       for update
     </if>
   </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

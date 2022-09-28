@@ -74,6 +74,9 @@ public class Blog implements Serializable {
 
     private Long type_id;
 
+    private String type;
+
+
     private static final long serialVersionUID = 1L;
 
     @Override

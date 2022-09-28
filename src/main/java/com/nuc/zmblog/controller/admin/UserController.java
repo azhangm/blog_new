@@ -39,7 +39,7 @@ public class UserController {
             login.setPassword(null);
             session.setAttribute("user",login);
             System.out.println("登录成功！！");
-            return "admin/blogs";
+            return "redirect:/admin/blogs";
         }else {
             System.out.println("123");
             attributes.addFlashAttribute("message","用户名或密码错误");

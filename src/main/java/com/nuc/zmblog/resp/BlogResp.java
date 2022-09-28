@@ -1,5 +1,10 @@
 package com.nuc.zmblog.resp;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 
 /**
@@ -8,7 +13,10 @@ import java.time.LocalDateTime;
  * @author zm
  * @date 2022/09/27
  */
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class BlogResp  {
     /**
      * 博客id
@@ -60,13 +68,15 @@ public class BlogResp  {
      */
     private boolean recommend;
 
+    private String type;
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+
+    private LocalDateTime create_time;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 }

@@ -15,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminNavController {
 
-    @GetMapping("/blogs")
-    public String blogs() {
-        return "/admin/blogs";
-    }
 
     @GetMapping("/blogs-pub")
     public String blogsPub() {

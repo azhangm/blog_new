@@ -77,4 +77,9 @@ public class BlogReq {
     private String type;
 
 
+    public BlogReq(String titile, boolean recommend, String type) {
+        this.titile = titile;
+        this.recommend = recommend;
+        this.type = type;
+    }
 }

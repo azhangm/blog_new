@@ -15,8 +15,6 @@ class TypeMapperTest {
     private TypeMapper typeMapper;
     @Test
     void selectByName() {
-
-        List<Type> types = typeMapper.selectByName("1111");
-        System.out.println(types);
+        System.out.println(typeMapper.selectByExample(null));
     }
 }

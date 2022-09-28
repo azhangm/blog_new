@@ -218,6 +218,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="selectAll" resultType="com.nuc.zmblog.pojo.Blog">
+    select * from blog;
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update blog blog
     <set>
