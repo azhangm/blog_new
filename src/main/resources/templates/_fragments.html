@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--成为一个 thymeleaf 片段-->
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <link href="../static/css/prism.css" rel="stylesheet" th:href="@{/css/prism.css}"/>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <title th:replace="${title}">页面</title>
+    <link rel="icon" type="image/x-ico"  th:href="@{/image/logo.png}" href="../static/image/logo.png"/> z
+</head>
+<body>
+<nav th:fragment="menu(n)" class="ui inverted m-opacity-mini  segment  attached m-padded-tb-mini m-shadow-small">
+    <div class="ui inverted menu">
+        <div class="ui inverted stackable menu">
+            <h2 class="ui header teal secondary item">ZMBLOG</h2>
+            <a href="/" class="item" th:classappend="${n == 1} ? 'active' "><i class=" home icon"></i>首页</a>
+            <a href="/blogType" class="item" th:classappend="${n == 2} ? 'active' "><i class=" idea icon"></i>分类</a>
+            <a href="/blogTags" class="item" th:classappend="${n == 3} ? 'active' "><i class=" tags icon"></i>标签</a>
+            <a href="/blogArchive" class="item" th:classappend="${n == 4} ? 'active' "><i class=" clone icon"></i>归档</a>
+            <a href="/aboutMe" class="item" th:classappend="${n == 5} ? 'active' "><i class=" info icon"></i>关于我 </a>
+        </div>
+        <div class="right   item">
+            <div class="ui icon stackable  inverted input">
+                <input type="text" placeholder="搜索">
+                <i class="search link  icon"></i>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<footer th:fragment="footer" class="ui inverted segment  vertical stackable">
+    <div class="ui center aligned m-container-small container stackable">
+        <!--        分成 16 份-->
+        <div class="ui inverted divided grid stackable">
+            <div class="three wide column">
+                <h4 class="ui inverted header m-margin-tb-h4  m-text-space m-text-lined m-opacity-mini">扫码添加微信</h4>
+                <img src="../static/image/wechat.jpg" th:src="@{image/wechat.jpg}" class="ui rounded image" style="width: 100px " height="100px"
+                     alt="扫码添加">
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header   m-text-space m-text-lined m-opacity-mini">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">1</a>
+                    <a href="#" class="item">2</a>
+                    <a href="#" class="item">3</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header   m-text-space m-text-lined m-opacity-mini">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">1</a>
+                    <a href="#" class="item">2</a>
+                    <a href="#" class="item">3</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header  m-text-thin m-text-space m-text-lined m-opacity-mini">博客介绍</h4>
+                <div class="ui inverted link list  m-text-thin m-text-space m-text-lined m-opacity-mini">
+                    记录自己的网站~~~
+                </div>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class=" m-text-thin m-text-space m-text-lined m-opacity-mini"> ZM BLOG@2022 </p>
+    </div>
+</footer>
+<div th:fragment="bloglist" class="ui attached  segment">
+    <div class="ui mobile reversed stackable padded segment">
+        <div class="ui grid">
+            <div class=" eleven wide column">
+                <div class="ui header">
+                    <h3 class="ui header link"> 文章标题</h3>
+                </div>
+                <p>我是文章的内容</p>
+                <div class="ui grid">
+                    <div class="eleven wide column mini">
+                        <div class="ui horizontal link list">
+                            <div class="item">
+                                <img class="ui avatar image" th:src="@{/image/wechat.jpg}"
+                                     style="width: 40px" height="40px" alt="我的二维码" >
+                                <div class="content"><a href="#" class="header">zm</a></div>
+                            </div>
+                            <div class="item">
+                                <i class="calendar icon"></i>2022-9-01
+                            </div>
+                            <div class="item">
+                                <i class="eye icon"></i> 1234
+                            </div>
+                        </div>
+                    </div>
+                    <div class="five wide column right aligned">
+                        <a href="#" target="_blank" class="ui teal basic mini m-text-thin label">
+                            打开
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui five wide column">
+                <a href="#" target="_blank">
+                    <img src="https://picsum.photos/seed/picsum/200"  alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="ui padded segment">
+        <div class="ui grid">
+            <div class="ui eleven wide column">
+                <div class="ui header">
+                    <h3 class="ui header link"> 文章标题</h3>
+                </div>
+                <p>我是文章的内容</p>
+                <div class="ui grid">
+                    <div class="eleven wide column">
+                        <div class="ui horizontal link list">
+                            <div class="item">
+                                <img class="ui avatar image" th:src="@{/image/wechat.jpg}"
+                                     style="width: 40px" height="40px" alt="">
+                                <div class="content"><a href="#" class="header">zm</a></div>
+                            </div>
+                            <div class="item">
+                                <i class="calendar icon"></i>2022-9-01
+                            </div>
+                            <div class="item">
+                                <i class="eye icon"></i>1234
+                            </div>
+                        </div>
+                    </div>
+                    <div class="five wide column right aligned">
+                        <a href="#" target="_blank" class="ui teal basic mini m-text-thin label">
+                            打开
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui five wide column">
+                <a href="#" target="_blank">
+                    <img th:src="@{/image/wechat.jpg}" style="width: 200px" height="200px" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="ui padded segment">
+        <div class="ui grid">
+            <div class="ui eleven wide column">
+                <div class="ui header">
+                    <h3 class="ui header link"> 文章标题</h3>
+                </div>
+                <p>我是文章的内容</p>
+                <div class="ui grid">
+                    <div class="eleven wide column">
+                        <div class="ui horizontal link list">
+                            <div class="item">
+                                <img class="ui avatar image" th:src="@{/image/wechat.jpg}"
+                                     style="width: 40px" height="40px" alt="">
+                                <div class="content"><a href="#" class="header">zm</a></div>
+                            </div>
+                            <div class="item">
+                                <i class="calendar icon"></i>2022-9-01
+                            </div>
+                            <div class="item">
+                                <i class="eye icon"></i>1234
+                            </div>
+                        </div>
+                    </div>
+                    <div class="five wide column right aligned">
+                        <a href="#" target="_blank" class="ui teal basic mini m-text-thin label">
+                            打开
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui five wide column">
+                <a href="#" target="_blank">
+                    <img th:src="@{/image/wechat.jpg}" style="width: 200px" height="200px" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="ui padded segment">
+        <div class="ui grid">
+            <div class="ui eleven wide column">
+                <div class="ui header">
+                    <h3 class="ui header link"> 文章标题</h3>
+                </div>
+                <p>我是文章的内容</p>
+                <div class="ui grid">
+                    <div class="eleven wide column">
+                        <div class="ui horizontal link list">
+                            <div class="item">
+                                <img class="ui avatar image" th:src="@{/image/wechat.jpg}"
+                                     style="width: 40px" height="40px" alt="">
+                                <div class="content"><a href="#" class="header">zm</a></div>
+                            </div>
+                            <div class="item">
+                                <i class="calendar icon"></i>2022-9-01
+                            </div>
+                            <div class="item">
+                                <i class="eye icon"></i>1234
+                            </div>
+                        </div>
+                    </div>
+                    <div class="five wide column right aligned">
+                        <a href="#" target="_blank" class="ui teal basic mini m-text-thin label">
+                            打开
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui five wide column">
+                <a href="#" target="_blank">
+                    <img th:src="@{/image/wechat.jpg}" style="width: 200px" height="200px" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="ui padded segment">
+        <div class="ui grid">
+            <div class="ui eleven wide column">
+                <div class="ui header">
+                    <h3 class="ui header link"> 文章标题</h3>
+                </div>
+                <p>我是文章的内容</p>
+                <div class="ui grid">
+                    <div class="eleven wide column">
+                        <div class="ui horizontal link list">
+                            <div class="item">
+                                <img class="ui avatar image" th:src="@{/image/wechat.jpg}"
+                                     style="width: 40px" height="40px" alt="">
+                                <div class="content"><a href="#" class="header">zm</a></div>
+                            </div>
+                            <div class="item">
+                                <i class="calendar icon"></i>2022-9-01
+                            </div>
+                            <div class="item">
+                                <i class="eye icon"></i>1234
+                            </div>
+                        </div>
+                    </div>
+                    <div class="five wide column right aligned">
+                        <a href="#" target="_blank" class="ui teal basic mini m-text-thin label">
+                            打开
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui five wide column">
+                <a href="#" target="_blank">
+                    <img th:src="@{/image/wechat.jpg}" style="width: 200px" height="200px" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/js/prism.js" th:src="/js/prism.js"></script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,97 @@
+body {
+    background: url("../image/bj.jpg") no-repeat center center fixed ;
+    background-size: cover;
+}
+
+.m-padded-tb-mini {
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+.m-padded-tb-massive {
+    padding-top: 5em !important;
+    padding-bottom: 5em !important;
+}
+.m-padded-tb-large {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
+.m-margin-tb-h4 {
+    margin-right: 85px !important;
+}
+
+/*文本设置*/
+.m-text-thin {
+    font-weight: 300 !important;
+}
+
+.m-text-spaced {
+    letter-spacing: 1px !important;
+}
+
+.m-text-lined {
+    line-height: 1.8em !important;
+}
+.m-opacity-small {
+    opacity: 0.5 !important;
+}
+
+.m-opacity-mini {
+    opacity: 0.6 !important;
+}
+
+.m-inline-block {
+  display: inline-block;
+}
+
+.m-margin-mini {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+    margin-left: 0.3em !important;
+}
+
+.m-black {
+    color: #333 !important;
+}
+.m-margin-top {
+    margin-top: 50px !important;
+}
+.m-padded-lr {
+    padding-left: 4em !important;
+    padding-right: 4em !important;
+}
+.m-margin-tiny {
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+    margin-left: 1em !important;
+  }
+
+.m-shadow-small {
+    -webkit-box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    box-shadow:0 4px 8px rgba(0,0,0,0.2) !important;
+}
+.m-margin-right {
+
+}
+
+.m-fixed{
+    position: fixed !important;
+    z-index: 100 !important;
+}
+
+.m-right-button {
+    bottom : 0 !important;
+    right: 0 !important;
+}
+
+
+
+/*-----container*/
+
+.m-container {
+    max-width: 72em !important;
+    margin: auto !important;
+}
+.m-container-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}

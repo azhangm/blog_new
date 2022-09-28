@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <title>首页</title>
+</head>
+<body>
+<!--导航-->
+<nav th:replace="_fragments ::  menu(1)">
+</nav>
+<!--中间内容-->
+<div class=" m-padded-tb-large stackable ">
+    <div class="ui container stackable">
+        <div class="ui grid stackable" >
+            <div class="eleven wide column stackable">
+                <!--                header-->
+                <div class="ui top attached segment stackable ">
+                    <div class="ui grid two column middle stackable aligned">
+                        <div class="column ">
+                            <h2 class="ui teal header">博客</h2>
+                        </div>
+                        <div class="column right aligned stackable ">
+                            共 <h2 class="ui orange header m-inline-block m-text-thin">14</h2>篇
+                        </div>
+                    </div>
+                </div>
+                <!--                列表-->
+                <div class="ui attached  segment">
+                    <div class="ui mobile reversed stackable padded segment">
+                        <div class="ui grid">
+                          <div th:replace="_fragments :: bloglist"></div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--                列表底部-->
+                <div class="ui bottom attached segment">
+                    <div class="ui grid two column middle aligned">
+                        <div class="column ">
+                            <a href="" class="ui teal basic mini button">上一页</a>
+                        </div>
+                        <div class="column right aligned">
+                            <a href="" class="ui teal basic mini button">下一页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            右边小卡片的开发-->
+            <div class="five wide column">
+                <div class="ui  segments ">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="icon idea"></i>分类
+                            </div>
+                            <div class="column right aligned">
+                                <a href="#" target="_blank">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui segment">
+                        <div class="ui fluid vertical menu">
+                            <a href="#" class="item">
+                                学习日志
+                                <div class="ui teal left pointing basic label">13</div>
+                            </a>
+                        </div>
+                        <div class="ui fluid vertical menu">
+                            <a href="#" class="item">
+                                学习日志
+                                <div class="ui teal left pointing basic label">13</div>
+                            </a>
+                        </div>
+                        <div class="ui fluid vertical menu">
+                            <a href="#" class="item">
+                                学习日志
+                                <div class="ui teal left pointing basic label">13</div>
+                            </a>
+                        </div>
+                        <div class="ui fluid vertical menu">
+                            <a href="#" class="item">
+                                学习日志
+                                <div class="ui teal left pointing basic label">13</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui  segments m-margin-top">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="icon tags"></i>标签
+                            </div>
+                            <div class="column right aligned">
+                                <a href="#" target="_blank">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui  teal segment">
+                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label">
+                            方法论
+                            <div class="detail">23</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="ui  segments m-margin-top">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="icon bookmark"></i>最新推荐
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui segment">
+                        <a href="#" target="_blank" class="m-black m-text-thin">hello world</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="#" target="_blank" class="m-black m-text-thin">hello world</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="#" target="_blank" class="m-black m-text-thin">hello world</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
+                    </div>
+                </div>
+                <h4 class="ui horizontal divider header m-margin-top">
+                    扫码添加我为好友
+                </h4>
+                <div class="ui centered card" style="width: 11em">
+                    <img src="../static/image/wechat.jpg" th:src="@{/image/wechat.jpg}" alt="" class="ui rounded image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<footer th:replace="_fragments :: footer">
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+</body>
+</html>

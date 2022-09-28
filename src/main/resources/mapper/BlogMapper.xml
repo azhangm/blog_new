@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuc.zmblog.mapper.BlogMapper">
+  <resultMap id="BaseResultMap" type="com.nuc.zmblog.pojo.Blog">
+    <id column="blog_id" jdbcType="BIGINT" property="id" />
+    <result column="blog_titile" jdbcType="VARCHAR" property="titile" />
+    <result column="blog_content" jdbcType="VARCHAR" property="content" />
+    <result column="blog_first_picture" jdbcType="VARCHAR" property="first_picture" />
+    <result column="blog_flag" jdbcType="VARCHAR" property="flag" />
+    <result column="blog_views" jdbcType="BIGINT" property="views" />
+    <result column="blog_appreciation" jdbcType="INTEGER" property="appreciation" />
+    <result column="blog_Commentated" jdbcType="INTEGER" property="commentated" />
+    <result column="blog_published" jdbcType="INTEGER" property="published" />
+    <result column="blog_recommend" jdbcType="INTEGER" property="recommend" />
+    <result column="blog_create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="blog_update_time" jdbcType="TIMESTAMP" property="update_time" />
+    <result column="blog_type_id" jdbcType="BIGINT" property="type_id" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    blog.id as blog_id, blog.titile as blog_titile, blog.content as blog_content, blog.first_picture as blog_first_picture, 
+    blog.flag as blog_flag, blog.views as blog_views, blog.appreciation as blog_appreciation, 
+    blog.Commentated as blog_Commentated, blog.published as blog_published, blog.recommend as blog_recommend, 
+    blog.create_time as blog_create_time, blog.update_time as blog_update_time, blog.type_id as blog_type_id
+  </sql>
+  <select id="selectByExample" parameterType="com.nuc.zmblog.pojo.BlogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog blog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog blog
+    where blog.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from blog
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nuc.zmblog.pojo.BlogExample">
+    delete from blog blog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.nuc.zmblog.pojo.Blog" useGeneratedKeys="true">
+    insert into blog (titile, content, first_picture, 
+      flag, views, appreciation, 
+      Commentated, published, recommend, 
+      create_time, update_time, type_id
+      )
+    values (#{titile,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{first_picture,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=VARCHAR}, #{views,jdbcType=BIGINT}, #{appreciation,jdbcType=INTEGER}, 
+      #{commentated,jdbcType=INTEGER}, #{published,jdbcType=INTEGER}, #{recommend,jdbcType=INTEGER}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{type_id,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.nuc.zmblog.pojo.Blog" useGeneratedKeys="true">
+    insert into blog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="titile != null">
+        titile,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="first_picture != null">
+        first_picture,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="views != null">
+        views,
+      </if>
+      <if test="appreciation != null">
+        appreciation,
+      </if>
+      <if test="commentated != null">
+        Commentated,
+      </if>
+      <if test="published != null">
+        published,
+      </if>
+      <if test="recommend != null">
+        recommend,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="update_time != null">
+        update_time,
+      </if>
+      <if test="type_id != null">
+        type_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="titile != null">
+        #{titile,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="first_picture != null">
+        #{first_picture,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=BIGINT},
+      </if>
+      <if test="appreciation != null">
+        #{appreciation,jdbcType=INTEGER},
+      </if>
+      <if test="commentated != null">
+        #{commentated,jdbcType=INTEGER},
+      </if>
+      <if test="published != null">
+        #{published,jdbcType=INTEGER},
+      </if>
+      <if test="recommend != null">
+        #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type_id != null">
+        #{type_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nuc.zmblog.pojo.BlogExample" resultType="java.lang.Long">
+    select count(*) from blog blog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update blog blog
+    <set>
+      <if test="record.id != null">
+        blog.id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.titile != null">
+        blog.titile = #{record.titile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        blog.content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.first_picture != null">
+        blog.first_picture = #{record.first_picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null">
+        blog.flag = #{record.flag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.views != null">
+        blog.views = #{record.views,jdbcType=BIGINT},
+      </if>
+      <if test="record.appreciation != null">
+        blog.appreciation = #{record.appreciation,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentated != null">
+        blog.Commentated = #{record.commentated,jdbcType=INTEGER},
+      </if>
+      <if test="record.published != null">
+        blog.published = #{record.published,jdbcType=INTEGER},
+      </if>
+      <if test="record.recommend != null">
+        blog.recommend = #{record.recommend,jdbcType=INTEGER},
+      </if>
+      <if test="record.create_time != null">
+        blog.create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.update_time != null">
+        blog.update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type_id != null">
+        blog.type_id = #{record.type_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update blog blog
+    set blog.id = #{record.id,jdbcType=BIGINT},
+      blog.titile = #{record.titile,jdbcType=VARCHAR},
+      blog.content = #{record.content,jdbcType=VARCHAR},
+      blog.first_picture = #{record.first_picture,jdbcType=VARCHAR},
+      blog.flag = #{record.flag,jdbcType=VARCHAR},
+      blog.views = #{record.views,jdbcType=BIGINT},
+      blog.appreciation = #{record.appreciation,jdbcType=INTEGER},
+      blog.Commentated = #{record.commentated,jdbcType=INTEGER},
+      blog.published = #{record.published,jdbcType=INTEGER},
+      blog.recommend = #{record.recommend,jdbcType=INTEGER},
+      blog.create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      blog.update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      blog.type_id = #{record.type_id,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nuc.zmblog.pojo.Blog">
+    update blog
+    <set>
+      <if test="titile != null">
+        titile = #{titile,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="first_picture != null">
+        first_picture = #{first_picture,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null">
+        views = #{views,jdbcType=BIGINT},
+      </if>
+      <if test="appreciation != null">
+        appreciation = #{appreciation,jdbcType=INTEGER},
+      </if>
+      <if test="commentated != null">
+        Commentated = #{commentated,jdbcType=INTEGER},
+      </if>
+      <if test="published != null">
+        published = #{published,jdbcType=INTEGER},
+      </if>
+      <if test="recommend != null">
+        recommend = #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type_id != null">
+        type_id = #{type_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nuc.zmblog.pojo.Blog">
+    update blog
+    set titile = #{titile,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      first_picture = #{first_picture,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      views = #{views,jdbcType=BIGINT},
+      appreciation = #{appreciation,jdbcType=INTEGER},
+      Commentated = #{commentated,jdbcType=INTEGER},
+      published = #{published,jdbcType=INTEGER},
+      recommend = #{recommend,jdbcType=INTEGER},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      type_id = #{type_id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
