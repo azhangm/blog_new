@@ -5,6 +5,8 @@ import com.nuc.zmblog.request.TypeReq;
 import com.nuc.zmblog.resp.PageResp;
 import com.nuc.zmblog.resp.TypeResp;
 
+import java.util.List;
+
 public interface TypeService {
     Integer saveType(TypeReq typeAddReq);
 
@@ -15,4 +17,7 @@ public interface TypeService {
     int updateType(TypeReq typeReq);
 
     PageResp<TypeResp> listType(Integer page, Integer size);
+
+    List<TypeResp> listType();
+
 }

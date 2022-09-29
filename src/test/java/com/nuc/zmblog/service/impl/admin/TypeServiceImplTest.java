@@ -37,8 +37,10 @@ class TypeServiceImplTest {
 //        System.out.println(typeService.listType(2, 3));
 //        System.out.println(typeService);
 //        System.out.println(userService);
-        System.out.println(typeMapper.selectByExample(null));
+//        System.out.println(typeMapper.selectByExample(null));
 //        Type type = new Type(null,"3",null);
+
+        System.out.println(typeService.listType());
 //        System.out.println(type);
     }
 

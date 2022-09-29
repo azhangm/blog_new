@@ -16,6 +16,4 @@ public class TypeResp {
 
     private String name;
 
-    // 处理实体类之间的关系
-    private List<Blog> blogs;
 }

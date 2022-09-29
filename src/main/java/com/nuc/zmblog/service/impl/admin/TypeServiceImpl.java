@@ -3,6 +3,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nuc.zmblog.mapper.TypeMapper;
 import com.nuc.zmblog.pojo.Type;
+import com.nuc.zmblog.pojo.TypeExample;
 import com.nuc.zmblog.request.TypeReq;
 import com.nuc.zmblog.resp.PageResp;
 import com.nuc.zmblog.resp.TypeResp;
@@ -62,6 +63,8 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public PageResp<TypeResp> listType(Integer page , Integer size) {
         PageHelper.startPage(page,size);
+        TypeExample example = new TypeExample();
+        example.setOrderByClause("update_time desc");
         List<Type> types = typeMapper.selectByExample(null);
         List<TypeResp> typeResps = CopyUtils.copyList(types, TypeResp.class);
         PageInfo<TypeResp> pageInfo = new PageInfo<>(typeResps);
@@ -69,6 +72,17 @@ public class TypeServiceImpl implements TypeService {
         boolean isFirst = page == 1;
         boolean isLast = total < size ;
         return new PageResp<>(pageInfo.getTotal(), pageInfo.getList(),page,isFirst,isLast);
+    }
+
+    /**
+     * 列表类型
+     *
+     * @return {@link List}<{@link TypeResp}>
+     */
+    @Override
+    public List<TypeResp> listType() {
+        List<Type> types = typeMapper.selectByExample(null);
+        return CopyUtils.copyList(types, TypeResp.class);
     }
 
 

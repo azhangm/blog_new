@@ -83,18 +83,19 @@ public class BlogServiceImpl implements BlogService {
         }
         else {
             BlogExample.Criteria criteria = example.createCriteria();
+            BlogExample.Criteria criteria1 = example.createCriteria();
             if (!StringUtils.isEmptyOrWhitespace(blogReq.getTitile())) criteria.andTitileLike(blogReq.getTitile());
             if (blogReq.isRecommend()) criteria.andRecommendEqualTo(1);
             else criteria.andRecommendEqualTo(0);
             if (!StringUtils.isEmptyOrWhitespace(blogReq.getType())) {
-                List<Type> types = typeMapper.selectByName(blogReq.getType());
                 // 根据分类查询博客
-                Long id = types.get(0).getId();
+                Long id = Long.valueOf(blogReq.getType());
                 criteria.andType_idEqualTo(id);
             }
+            example.or(criteria1);
         }
         PageHelper.startPage(page,size);
-        example.setOrderByClause("create_time desc");
+        example.setOrderByClause("update_time desc");
         List<Blog> blogs = blogMapper.selectByExample(example);
 
         for (Blog blog : blogs) {
