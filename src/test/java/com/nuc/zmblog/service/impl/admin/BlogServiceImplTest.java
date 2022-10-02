@@ -3,6 +3,7 @@ package com.nuc.zmblog.service.impl.admin;
 import com.nuc.zmblog.exception.NotFoundException;
 import com.nuc.zmblog.request.BlogReq;
 import com.nuc.zmblog.service.admin.BlogService;
+import com.nuc.zmblog.service.admin.TagsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,10 +15,15 @@ import javax.annotation.Resource;
 class BlogServiceImplTest {
 
     @Resource
+    private TagsService tagsService;
+
+
+    @Resource
     private BlogService blogService;
 
     @Test
     public void saveTest() {
+        System.out.println(tagsService.listTags());
         System.out.println(blogService.getBlogById(14367453454143488L));
     }
 

@@ -122,12 +122,12 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.nuc.zmblog.pojo.Blog" useGeneratedKeys="true">
-    insert into blog (titile, content, first_picture, 
+    insert into blog (id,titile, content, first_picture,
       flag, views, appreciation, 
       Commentated, published, recommend, 
       create_time, update_time, type_id
       )
-    values (#{titile,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{first_picture,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT},#{titile,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{first_picture,jdbcType=VARCHAR},
       #{flag,jdbcType=VARCHAR}, #{views,jdbcType=BIGINT}, #{appreciation,jdbcType=INTEGER}, 
       #{commentated,jdbcType=INTEGER}, #{published,jdbcType=INTEGER}, #{recommend,jdbcType=INTEGER}, 
       #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{type_id,jdbcType=BIGINT}

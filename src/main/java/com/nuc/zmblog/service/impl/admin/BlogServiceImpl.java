@@ -38,8 +38,16 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Integer saveBlog(BlogReq blogAddReq) {
         long l = snowFlake.nextId();
+        blogAddReq.setId(l);
         Blog blog = new Blog();
         BeanUtils.copyProperties(blogAddReq,blog);
+        if (blogAddReq.isCommentated()) blog.setCommentated(1);
+        if (blogAddReq.isAppreciation()) blog.setAppreciation(1);
+        if (blogAddReq.isPublished()) blog.setPublished(1);
+        if (blogAddReq.isRecommend()) blog.setRecommend(1);
+        blog.setViews(0L);
+        blog.setCreate_time(LocalDateTime.now());
+        blog.setUpdate_time(LocalDateTime.now());
         blog.setId(l);
 
         return blogMapper.insert(blog);

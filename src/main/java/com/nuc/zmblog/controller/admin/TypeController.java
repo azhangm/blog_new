@@ -48,10 +48,6 @@ public class TypeController {
         if (result.hasErrors()) {
             return "redirect:/admin/addType";
         }
-        System.out.println(req);
-        System.out.println("=====================");
-        System.out.println(session.getAttribute("id"));
-        System.out.println("=====================");
         Long id = (Long) session.getAttribute("id");
         session.removeAttribute("id");
         req.setId(id);

@@ -45,22 +45,22 @@ public class Blog implements Serializable {
     /**
      * 是否开启赞赏功能
      */
-    private Integer appreciation;
+    private Integer appreciation = 0;
 
     /**
      * 是否开启评论  0 否 1 是
      */
-    private Integer commentated;
+    private Integer commentated = 0;
 
     /**
      * 是否发布该博客~
      */
-    private Integer published;
+    private Integer published = 0;
 
     /**
      * 是否推荐该博客~
      */
-    private Integer recommend;
+    private Integer recommend = 0;
 
     /**
      * 创建时间
