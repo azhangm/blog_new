@@ -4,14 +4,18 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nuc.zmblog.exception.NotFoundException;
 import com.nuc.zmblog.mapper.BlogMapper;
+import com.nuc.zmblog.mapper.TagsBlogMapper;
 import com.nuc.zmblog.mapper.TypeMapper;
 import com.nuc.zmblog.pojo.Blog;
 import com.nuc.zmblog.pojo.BlogExample;
+import com.nuc.zmblog.pojo.TagsBlog;
 import com.nuc.zmblog.pojo.Type;
 import com.nuc.zmblog.request.BlogReq;
 import com.nuc.zmblog.resp.BlogResp;
 import com.nuc.zmblog.resp.PageResp;
+import com.nuc.zmblog.resp.TagsResp;
 import com.nuc.zmblog.service.admin.BlogService;
+import com.nuc.zmblog.service.admin.TagsService;
 import com.nuc.zmblog.utils.CopyUtils;
 import com.nuc.zmblog.utils.SnowFlake;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +32,12 @@ public class BlogServiceImpl implements BlogService {
     @Resource
     private BlogMapper blogMapper;
 
+
+    @Resource
+    private TagsService tagsService;
+
+    @Resource
+    private TagsBlogMapper tagsBlogMapper;
 
     @Resource
     private TypeMapper typeMapper;
@@ -50,14 +60,31 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreate_time(LocalDateTime.now());
         blog.setUpdate_time(LocalDateTime.now());
         blog.setId(l);
-
+//        处理 中间表
+        String tag = blogAddReq.getTag();
+        List<TagsResp> tagsResps = tagsService.listTags(tag);
+        for (TagsResp tagsResp : tagsResps) {
+            TagsBlog tagsBlog = new TagsBlog(l, tagsResp.getId());
+            tagsBlogMapper.insert(tagsBlog);
+        }
         return blogMapper.insert(blog);
     }
 
     @Override
-    public Blog getBlogById(Long id) {
+    public BlogResp getBlogById(Long id) {
+        BlogResp copy ;
         if (id == null) return  null;
-        else return blogMapper.selectByPrimaryKey(id);
+        else {
+            Blog blog = blogMapper.selectByPrimaryKey(id);
+            copy = CopyUtils.copy(blog, BlogResp.class);
+            if (blog.getRecommend() == 1) copy.setRecommend(true);
+            if (blog.getPublished() == 1) copy.setPublished(true);
+            if (blog.getAppreciation() == 1) copy.setAppreciation(true);
+            if (blog.getCommentated() == 1) copy.setCommentated(true);
+            Type type = typeMapper.selectByPrimaryKey(blog.getType_id());
+            copy.setType(type.getName());
+        }
+        return copy;
     }
 
     @Override

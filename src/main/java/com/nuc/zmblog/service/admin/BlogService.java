@@ -27,7 +27,7 @@ public interface BlogService {
      * @param id id
      * @return {@link Blog}
      */
-    Blog getBlogById(Long id);
+    BlogResp getBlogById(Long id);
 
     /**
      * 删除通过id

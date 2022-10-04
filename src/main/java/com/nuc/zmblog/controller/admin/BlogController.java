@@ -1,6 +1,8 @@
 package com.nuc.zmblog.controller.admin;
 
+import com.nuc.zmblog.pojo.Blog;
 import com.nuc.zmblog.request.BlogReq;
+import com.nuc.zmblog.resp.BlogResp;
 import com.nuc.zmblog.service.admin.BlogService;
 import com.nuc.zmblog.service.admin.TagsService;
 import com.nuc.zmblog.service.admin.TypeService;
@@ -81,4 +83,25 @@ public class BlogController {
         return "admin/blogs-pub";
     }
 
+
+    @GetMapping("/blogs/delete")
+    public String deleteBlog(@RequestParam Long id , RedirectAttributes attributes ) {
+        int i = blogService.removeById(id);
+        if (i > 0) {
+            attributes.addFlashAttribute("message","操作成功");
+        }else attributes.addFlashAttribute("message","操作失败");
+
+        return "redirect:";
+
+    }
+
+
+    @PostMapping("/blogs-pub/{id}")
+    public String editBlog(@RequestParam Long id , Model model) {
+        model.addAttribute("types",typeService.listType());
+        model.addAttribute("tags",tagService.listTags());
+        BlogResp blogById = blogService.getBlogById(id);
+        model.addAttribute("blog",blogById);
+        return "admin/blogs-pub";
+    }
 }

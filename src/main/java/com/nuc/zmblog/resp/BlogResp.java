@@ -73,6 +73,7 @@ public class BlogResp  {
      * 创建时间
      */
 
+    private String tagIds;
     private LocalDateTime create_time;
 
     /**

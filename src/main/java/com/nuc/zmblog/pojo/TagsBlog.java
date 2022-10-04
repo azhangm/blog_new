@@ -5,6 +5,7 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * tags_blog
@@ -30,6 +31,12 @@ public class TagsBlog implements Serializable {
     private Long tagsId;
 
     private static final long serialVersionUID = 1L;
+
+    public TagsBlog(long l, Long id) {
+        blogId = l;
+        tagsId = id;
+    }
+
 
     @Override
     public boolean equals(Object that) {
