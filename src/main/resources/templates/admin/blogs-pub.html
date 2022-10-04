@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.css" th:href="@{/lib/editormd/css/editormd.css}">
     <link rel="icon" type="image/x-ico"  th:href="@{/image/logo.png}" href="../static/image/logo.png"/>
 
-    <titile>博客发布~</titile>
+    <title>博客发布~</title>
 </head>
 <body>
 <!--导航-->
@@ -60,7 +60,7 @@
                             <div class="default text">分类</div>
                             <div class="menu">
 <!--                                <div class="item" data-value="框架技术"  th:each="type : ${types}"  th:data-value="${type.id}" th:text="${type.name}>框架技术</div>-->
-                                <div class="item" data-value="算法与数据结构">算法与数据结构</div>
+<!--                                <div class="item" data-value="算法与数据结构">算法与数据结构</div>-->
 <!--                                <div class="item" data-value="计算机基础">计算机基础</div>-->
                                 <div th:each="type : ${types}" class="item" th:data-value="${type.id}"  th:text="${type.name}"  data-value="js">JavaScript</div>
 
@@ -116,8 +116,7 @@
             </div>
             <div class="ui container right aligned">
                 <button class="ui button" onclick="window.history.go(-1)">返回</button>
-                <button class="ui button secondary">保存</button>
-                <button class="ui button teal">发布</button>
+                <button class="ui button teal" id="pub-bth">发布</button>
             </div>
         </form>
     </div>
@@ -161,5 +160,7 @@
             path : '/lib/editormd/lib/'
         });
     });
+
+
 </script>
 

@@ -37,10 +37,9 @@ public class BlogController {
     @GetMapping("/blogs")
     public String blogs(Model model, @RequestParam(required = false) BlogReq blogReq , @RequestParam(required = false) Integer page) {
         page = page == null ? 1  : page;
-        System.out.println(blogReq);
         model.addAttribute("types",typeService.listType());
         model.addAttribute("BlogPage",blogService.listBlog(page,10,blogReq));
-        return "/admin/blogs";
+        return "admin/blogs";
     }
 
     /**
@@ -64,13 +63,13 @@ public class BlogController {
     @PostMapping("/blogs-pub")
     public String blogsPub(BlogReq blogReq , RedirectAttributes attributes , @RequestParam("content-editor-markdown-doc") String content) {
         blogReq.setContent(content);
-
+        blogReq.setPublished(true);
         Integer integer = blogService.saveBlog(blogReq);
         if (integer > 0) {
             attributes.addFlashAttribute("message","操作成功");
         }else attributes.addFlashAttribute("message","操作失败");
 
-        return "admin/blogs-pub";
+        return "redirect:blogs";
     }
 
     @GetMapping ("/blogs-pub")

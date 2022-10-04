@@ -40,6 +40,7 @@ public class BlogServiceImpl implements BlogService {
         long l = snowFlake.nextId();
         blogAddReq.setId(l);
         Blog blog = new Blog();
+        blog.setType_id(Long.valueOf(blogAddReq.getType()));
         BeanUtils.copyProperties(blogAddReq,blog);
         if (blogAddReq.isCommentated()) blog.setCommentated(1);
         if (blogAddReq.isAppreciation()) blog.setAppreciation(1);
@@ -105,9 +106,10 @@ public class BlogServiceImpl implements BlogService {
         PageHelper.startPage(page,size);
         example.setOrderByClause("update_time desc");
         List<Blog> blogs = blogMapper.selectByExample(example);
-
+        System.out.println("blogs" + "        [========]    " + blogs );
         for (Blog blog : blogs) {
             Long type_id = blog.getType_id();
+            System.out.println(type_id);
             Type type = typeMapper.selectByPrimaryKey(type_id);
             blog.setType(type.getName());
         }
