@@ -23,4 +23,5 @@ public interface TagsService {
     List<TagsResp> listTags(String ids);
 
 
+    List<TagsResp> listTagsByBlogId(Long id);
 }

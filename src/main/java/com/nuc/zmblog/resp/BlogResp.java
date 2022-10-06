@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 博客职责
@@ -73,7 +74,7 @@ public class BlogResp  {
      * 创建时间
      */
 
-    private String tagIds;
+    private List<String > tags;
     private LocalDateTime create_time;
 
     /**

@@ -23,8 +23,7 @@ class BlogServiceImplTest {
 
     @Test
     public void saveTest() {
-        System.out.println(tagsService.listTags());
-        System.out.println(blogService.getBlogById(14367453454143488L));
+        System.out.println(blogService.getBlogById(14527046881251328L));
     }
 
     @Test

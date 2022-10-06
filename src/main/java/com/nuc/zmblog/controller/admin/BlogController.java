@@ -1,21 +1,22 @@
 package com.nuc.zmblog.controller.admin;
 
+import com.nuc.zmblog.exception.NotFoundException;
 import com.nuc.zmblog.pojo.Blog;
 import com.nuc.zmblog.request.BlogReq;
 import com.nuc.zmblog.resp.BlogResp;
+import com.nuc.zmblog.resp.TagsResp;
 import com.nuc.zmblog.service.admin.BlogService;
 import com.nuc.zmblog.service.admin.TagsService;
 import com.nuc.zmblog.service.admin.TypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 博客控制器
@@ -41,6 +42,15 @@ public class BlogController {
         page = page == null ? 1  : page;
         model.addAttribute("types",typeService.listType());
         model.addAttribute("BlogPage",blogService.listBlog(page,10,blogReq));
+        return "admin/blogs";
+    }
+
+
+    @PostMapping("/blogs")
+    public String blogs(Model model,  @RequestParam(required = false) Integer page) {
+        page = page == null ? 1  : page;
+        model.addAttribute("types",typeService.listType());
+        model.addAttribute("BlogPage",blogService.listBlog(page,10,null));
         return "admin/blogs";
     }
 
@@ -76,10 +86,7 @@ public class BlogController {
 
     @GetMapping ("/blogs-pub")
     public String blogsPub(Model model) {
-        model.addAttribute("types",typeService.listType());
-        model.addAttribute("tags",tagService.listTags());
-        System.out.println(typeService.listType());
-        System.out.println(tagService.listTags());
+        setTypeAndTag(model);
         return "admin/blogs-pub";
     }
 
@@ -96,12 +103,27 @@ public class BlogController {
     }
 
 
-    @PostMapping("/blogs-pub/{id}")
+    @GetMapping("/blogs-edit")
     public String editBlog(@RequestParam Long id , Model model) {
-        model.addAttribute("types",typeService.listType());
-        model.addAttribute("tags",tagService.listTags());
+
+        setTypeAndTag(model);
         BlogResp blogById = blogService.getBlogById(id);
+        if (blogById == null) throw new NotFoundException("没有该博客");
+        List<TagsResp> list = tagService.listTagsByBlogId(id);
+        blogById.setTags(new ArrayList<>());
+        for (TagsResp tagsResp : list) {
+            System.out.println(tagsResp);
+            blogById.getTags().add(tagsResp.getName());
+        }
+        System.out.println("=================edit====================");
+        System.out.println(blogById);
+        System.out.println("=================edit====================");
         model.addAttribute("blog",blogById);
         return "admin/blogs-pub";
+    }
+
+    private void setTypeAndTag(Model model) {
+        model.addAttribute("types",typeService.listType());
+        model.addAttribute("tags",tagService.listTags());
     }
 }

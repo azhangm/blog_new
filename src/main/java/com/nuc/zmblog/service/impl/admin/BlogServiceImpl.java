@@ -76,8 +76,10 @@ public class BlogServiceImpl implements BlogService {
         if (id == null) return  null;
         else {
             Blog blog = blogMapper.selectByPrimaryKey(id);
+            if (blog == null) return null;
             copy = CopyUtils.copy(blog, BlogResp.class);
             if (blog.getRecommend() == 1) copy.setRecommend(true);
+
             if (blog.getPublished() == 1) copy.setPublished(true);
             if (blog.getAppreciation() == 1) copy.setAppreciation(true);
             if (blog.getCommentated() == 1) copy.setCommentated(true);

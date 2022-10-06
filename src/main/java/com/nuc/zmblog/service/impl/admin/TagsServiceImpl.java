@@ -1,8 +1,11 @@
 package com.nuc.zmblog.service.impl.admin;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nuc.zmblog.mapper.TagsBlogMapper;
 import com.nuc.zmblog.mapper.TagsMapper;
 import com.nuc.zmblog.pojo.Tags;
+import com.nuc.zmblog.pojo.TagsBlog;
+import com.nuc.zmblog.pojo.TagsBlogExample;
 import com.nuc.zmblog.pojo.TagsExample;
 import com.nuc.zmblog.request.TagsReq;
 import com.nuc.zmblog.resp.PageResp;
@@ -10,7 +13,6 @@ import com.nuc.zmblog.resp.TagsResp;
 import com.nuc.zmblog.service.admin.TagsService;
 import com.nuc.zmblog.utils.CopyUtils;
 import com.nuc.zmblog.utils.SnowFlake;
-import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
@@ -26,6 +28,9 @@ public class TagsServiceImpl implements TagsService {
 
     @Resource SnowFlake snowFlake;
 
+
+    @Resource
+    private TagsBlogMapper tagsBlogMapper;
 
 //    这里可以返回一个 tags resp 指定错误信息 我的想法 之后在修改
     @Override
@@ -93,7 +98,18 @@ public class TagsServiceImpl implements TagsService {
         List<Tags> tags = tagsMapper.selectByExample(example);
         return CopyUtils.copyList(tags, TagsResp.class);
     }
-
+    @Override
+    public List<TagsResp> listTagsByBlogId(Long id) {
+        TagsBlogExample example = new TagsBlogExample();
+        TagsBlogExample.Criteria criteria = example.createCriteria();
+        criteria.andBlogIdEqualTo(id);
+        List<TagsBlog> tagsBlogs = tagsBlogMapper.selectByExample(example);
+        StringBuilder ids = new StringBuilder();
+        for (TagsBlog tagsBlog : tagsBlogs) {
+                ids.append(tagsBlog.getTagsId());
+        }
+        return listTags(ids.toString());
+    }
     private List<Long> convertToList(String ids) {
         List<Long> list = new ArrayList<>();
         if (StringUtils.isEmptyOrWhitespace(ids)) return list;
