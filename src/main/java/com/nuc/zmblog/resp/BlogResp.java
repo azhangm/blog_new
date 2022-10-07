@@ -37,7 +37,7 @@ public class BlogResp  {
     /**
      * 博客图片
      */
-    private String firstPicture;
+    private String first_picture;
 
     /**
      * 博客原创 转载 翻译
@@ -77,6 +77,8 @@ public class BlogResp  {
     private List<String > tags;
     private LocalDateTime create_time;
 
+
+    private String tagIds;
     /**
      * 更新时间
      */

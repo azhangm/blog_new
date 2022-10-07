@@ -137,7 +137,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectByBlogId" resultType="java.lang.Long">
+      select tags_id from tags_blog where blog_id = #{blogId};
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update tags_blog
     <set>
       <if test="record.id != null">

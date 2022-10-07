@@ -65,19 +65,12 @@ public class BlogReq {
      */
     private boolean recommend;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
 
     private String type;
 
     private String tag;
+
+
     public BlogReq(String titile, boolean recommend, String type) {
         this.titile = titile;
         this.recommend = recommend;

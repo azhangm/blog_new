@@ -30,4 +30,6 @@ public interface TagsBlogMapper {
     int updateByPrimaryKeySelective(TagsBlog record);
 
     int updateByPrimaryKey(TagsBlog record);
+
+    List<Long> selectByBlogId(Long blogId);
 }

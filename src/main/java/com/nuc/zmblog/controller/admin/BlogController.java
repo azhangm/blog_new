@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +47,6 @@ public class BlogController {
     }
 
 
-    @PostMapping("/blogs")
-    public String blogs(Model model,  @RequestParam(required = false) Integer page) {
-        page = page == null ? 1  : page;
-        model.addAttribute("types",typeService.listType());
-        model.addAttribute("BlogPage",blogService.listBlog(page,10,null));
-        return "admin/blogs";
-    }
 
     /**
      * 博客搜索
@@ -68,15 +62,28 @@ public class BlogController {
         model.addAttribute("BlogPage",blogService.listBlog(page,10,blogReq));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/admin/blogs :: blogList");
+
+
+
         return modelAndView;
     }
 
 //    先不添加 user 因为数据库表设计没有增加 user 以后优化再说
-    @PostMapping("/blogs-pub")
-    public String blogsPub(BlogReq blogReq , RedirectAttributes attributes , @RequestParam("content-editor-markdown-doc") String content) {
+    @PostMapping("/blogs")
+    public String blogsPub(BlogReq blogReq ,
+                           RedirectAttributes attributes ,
+                           HttpSession session,
+                           @RequestParam("content-editor-markdown-doc") String content
+            ) {
+        Long id = (Long) session.getAttribute("id");
+        if (id != null) {
+            blogReq.setId(id);
+            session.removeAttribute("id");
+        }
         blogReq.setContent(content);
         blogReq.setPublished(true);
         Integer integer = blogService.saveBlog(blogReq);
+
         if (integer > 0) {
             attributes.addFlashAttribute("message","操作成功");
         }else attributes.addFlashAttribute("message","操作失败");
@@ -87,6 +94,9 @@ public class BlogController {
     @GetMapping ("/blogs-pub")
     public String blogsPub(Model model) {
         setTypeAndTag(model);
+
+        if (model.getAttribute("blog") == null)
+        model.addAttribute("blog",new BlogResp());
         return "admin/blogs-pub";
     }
 
@@ -104,20 +114,24 @@ public class BlogController {
 
 
     @GetMapping("/blogs-edit")
-    public String editBlog(@RequestParam Long id , Model model) {
-
+    public String editBlog(@RequestParam Long id , Model model, HttpSession session) {
         setTypeAndTag(model);
         BlogResp blogById = blogService.getBlogById(id);
         if (blogById == null) throw new NotFoundException("没有该博客");
         List<TagsResp> list = tagService.listTagsByBlogId(id);
-        blogById.setTags(new ArrayList<>());
+        System.out.println(list);
+        StringBuffer sb = new StringBuffer();
         for (TagsResp tagsResp : list) {
-            System.out.println(tagsResp);
-            blogById.getTags().add(tagsResp.getName());
+                sb.append(tagsResp.getId());
+                sb.append(",");
         }
+        System.out.println(sb.toString());
+        String tagsId = sb.substring(0, sb.length() - 1);
+        blogById.setTagIds(tagsId);
         System.out.println("=================edit====================");
         System.out.println(blogById);
         System.out.println("=================edit====================");
+        session.setAttribute("id",id);
         model.addAttribute("blog",blogById);
         return "admin/blogs-pub";
     }

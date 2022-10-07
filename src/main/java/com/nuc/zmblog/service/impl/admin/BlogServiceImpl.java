@@ -24,6 +24,7 @@ import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,9 +48,18 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Integer saveBlog(BlogReq blogAddReq) {
-        long l = snowFlake.nextId();
-        blogAddReq.setId(l);
+        Long l = blogAddReq.getId();
         Blog blog = new Blog();
+        boolean flag = false;
+        if (l == null) {
+            l = snowFlake.nextId();
+            blogAddReq.setId(l);
+            blog.setCreate_time(LocalDateTime.now());
+            blog.setUpdate_time(LocalDateTime.now());
+            flag = true;
+        }else {
+            blog.setUpdate_time(LocalDateTime.now());
+        }
         blog.setType_id(Long.valueOf(blogAddReq.getType()));
         BeanUtils.copyProperties(blogAddReq,blog);
         if (blogAddReq.isCommentated()) blog.setCommentated(1);
@@ -63,11 +73,29 @@ public class BlogServiceImpl implements BlogService {
 //        处理 中间表
         String tag = blogAddReq.getTag();
         List<TagsResp> tagsResps = tagsService.listTags(tag);
+        List<Long> list = tagsBlogMapper.selectByBlogId(l);
+        List<Long> tagsId = new ArrayList<>();
+
         for (TagsResp tagsResp : tagsResps) {
-            TagsBlog tagsBlog = new TagsBlog(l, tagsResp.getId());
-            tagsBlogMapper.insert(tagsBlog);
+            tagsId.add(tagsResp.getId());
         }
+        for (Long aLong : list) {
+            if (tagsId.contains(aLong))
+                tagsId.remove(aLong);
+        }
+
+        for (Long aLong : tagsId) {
+             TagsBlog tagsBlog = new TagsBlog(l,aLong);
+               tagsBlogMapper.insert(tagsBlog);
+
+        }
+//        for (TagsResp tagsResp : tagsResps) {
+//            TagsBlog tagsBlog = new TagsBlog(l, tagsResp.getId());
+//            tagsBlogMapper.insert(tagsBlog);
+//        }
+        if (flag)
         return blogMapper.insert(blog);
+        else  return blogMapper.updateByPrimaryKeySelective(blog);
     }
 
     @Override
