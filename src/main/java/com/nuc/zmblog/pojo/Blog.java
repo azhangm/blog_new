@@ -72,6 +72,11 @@ public class Blog implements Serializable {
      */
     private LocalDateTime update_time;
 
+    /*
+    * 博客描述
+    * */
+    private String description;
+
     private Long type_id;
 
     private String type;
@@ -145,6 +150,7 @@ public class Blog implements Serializable {
         sb.append(", create_time=").append(create_time);
         sb.append(", update_time=").append(update_time);
         sb.append(", type_id=").append(type_id);
+        sb.append(",description").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

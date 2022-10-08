@@ -15,6 +15,7 @@
     <result column="blog_create_time" jdbcType="TIMESTAMP" property="create_time" />
     <result column="blog_update_time" jdbcType="TIMESTAMP" property="update_time" />
     <result column="blog_type_id" jdbcType="BIGINT" property="type_id" />
+    <result column="blog_description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +79,8 @@
     blog.id as blog_id, blog.titile as blog_titile, blog.content as blog_content, blog.first_picture as blog_first_picture, 
     blog.flag as blog_flag, blog.views as blog_views, blog.appreciation as blog_appreciation, 
     blog.Commentated as blog_Commentated, blog.published as blog_published, blog.recommend as blog_recommend, 
-    blog.create_time as blog_create_time, blog.update_time as blog_update_time, blog.type_id as blog_type_id
+    blog.create_time as blog_create_time, blog.update_time as blog_update_time, blog.type_id as blog_type_id,
+    blog.description as blog_description
   </sql>
   <select id="selectByExample" parameterType="com.nuc.zmblog.pojo.BlogExample" resultMap="BaseResultMap">
     select
@@ -125,12 +127,13 @@
     insert into blog (id,titile, content, first_picture,
       flag, views, appreciation, 
       Commentated, published, recommend, 
-      create_time, update_time, type_id
+      create_time, update_time, type_id,description
       )
     values (#{id,jdbcType=BIGINT},#{titile,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{first_picture,jdbcType=VARCHAR},
       #{flag,jdbcType=VARCHAR}, #{views,jdbcType=BIGINT}, #{appreciation,jdbcType=INTEGER}, 
       #{commentated,jdbcType=INTEGER}, #{published,jdbcType=INTEGER}, #{recommend,jdbcType=INTEGER}, 
-      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{type_id,jdbcType=BIGINT}
+      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{type_id,jdbcType=BIGINT},
+       #{description,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.nuc.zmblog.pojo.Blog" useGeneratedKeys="true">
@@ -326,6 +329,9 @@
       <if test="type_id != null">
         type_id = #{type_id,jdbcType=BIGINT},
       </if>
+        <if test="description != null">
+        description = #{description,jdbcType=VARCHAR}
+        </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>

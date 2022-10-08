@@ -45,4 +45,9 @@ class TagsServiceImplTest {
         System.out.println(tagsService);
         System.out.println(tagsService.listTags("1,3,4"));
     }
+
+    @Test
+    void listTagsByBlogId() {
+        tagsService.listTagsByBlogId(1L);
+    }
 }

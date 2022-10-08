@@ -27,8 +27,45 @@
                 <div class="ui attached  segment">
                     <div class="ui mobile reversed stackable padded segment">
                         <div class="ui grid">
-                          <div th:replace="_fragments :: bloglist"></div>
-                        </div>
+                            <div  class="ui attached  segment">
+                                    <div class="ui grid">
+                                        <div class=" eleven wide column">
+                                            <div class="ui header">
+                                                <h3 class="ui header link"> 文章标题</h3>
+                                            </div>
+                                            <p>我是文章的内容</p>
+                                            <div class="ui grid">
+                                                <div class="eleven wide column mini">
+                                                    <div class="ui horizontal link list">
+                                                        <div class="item">
+                                                            <img class="ui avatar image" th:src="@{/image/wechat.jpg}"
+                                                                 style="width: 40px" height="40px" alt="我的二维码" >
+                                                            <div class="content"><a href="#" class="header">zm</a></div>
+                                                        </div>
+                                                        <div class="item">
+                                                            <i class="calendar icon"></i>2022-9-01
+                                                        </div>
+                                                        <div class="item">
+                                                            <i class="eye icon"></i> 1234
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="five wide column right aligned">
+                                                    <a href="#" target="_blank" class="ui teal basic mini m-text-thin label">
+                                                        打开
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui five wide column">
+                                            <a href="#" target="_blank">
+                                                <img style="width: 200px;height: 150px"   th:src="@{/image/logo.png}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                     </div>
 
 

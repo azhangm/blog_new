@@ -91,6 +91,7 @@ public class TagsServiceImpl implements TagsService {
 
     @Override
     public List<TagsResp> listTags(String ids) {
+        if (StringUtils.isEmptyOrWhitespace(ids)) return null;
         List<Long> list = convertToList(ids);
         TagsExample example = new TagsExample();
         TagsExample.Criteria criteria = example.createCriteria();
@@ -107,6 +108,8 @@ public class TagsServiceImpl implements TagsService {
         StringBuilder ids = new StringBuilder();
         for (TagsBlog tagsBlog : tagsBlogs) {
                 ids.append(tagsBlog.getTagsId());
+                if (tagsBlogs.indexOf(tagsBlog) < tagsBlogs.size())
+                ids.append(",");
         }
         return listTags(ids.toString());
     }

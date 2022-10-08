@@ -80,8 +80,7 @@ public class BlogServiceImpl implements BlogService {
             tagsId.add(tagsResp.getId());
         }
         for (Long aLong : list) {
-            if (tagsId.contains(aLong))
-                tagsId.remove(aLong);
+            tagsId.remove(aLong);
         }
 
         for (Long aLong : tagsId) {
@@ -89,10 +88,7 @@ public class BlogServiceImpl implements BlogService {
                tagsBlogMapper.insert(tagsBlog);
 
         }
-//        for (TagsResp tagsResp : tagsResps) {
-//            TagsBlog tagsBlog = new TagsBlog(l, tagsResp.getId());
-//            tagsBlogMapper.insert(tagsBlog);
-//        }
+
         if (flag)
         return blogMapper.insert(blog);
         else  return blogMapper.updateByPrimaryKeySelective(blog);
@@ -137,14 +133,6 @@ public class BlogServiceImpl implements BlogService {
     public PageResp<BlogResp> listBlog(Integer page, Integer size, BlogReq blogReq) {
         BlogExample example = new BlogExample();
         if (blogReq == null) {
-//            PageHelper.startPage(page,size);
-//            List<Blog> blogs = blogMapper.selectByExample(null);
-//            List<BlogResp> blogResps = CopyUtils.copyList(blogs, BlogResp.class);
-//            PageInfo<BlogResp> pageInfo = new PageInfo<>(blogResps);
-//            long total = pageInfo.getTotal();
-//            boolean isFirst = page == 1;
-//            boolean isLast = total < size;
-//            return new PageResp<>(pageInfo.getTotal(), pageInfo.getList(),page,isFirst,isLast);
 
         }
         else {
@@ -163,7 +151,7 @@ public class BlogServiceImpl implements BlogService {
         PageHelper.startPage(page,size);
         example.setOrderByClause("update_time desc");
         List<Blog> blogs = blogMapper.selectByExample(example);
-        System.out.println("blogs" + "        [========]    " + blogs );
+        System.out.println("blogs" + "   " + blogs );
         for (Blog blog : blogs) {
             Long type_id = blog.getType_id();
             System.out.println(type_id);

@@ -94,17 +94,23 @@
                 <div class="field">
                     <div class="ui checkbox">
                         <input type="checkbox" id="recommend" name="recommend" class="hidden" th:checked="*{recommend}">
-                        <label for="recommend">推荐</label>
+                        <label for="recommend"  style="color: #7F007F">推荐</label>
                     </div>
                     <div class="ui checkbox">
 
                         <input type="checkbox" id="appreciation" name="appreciation"  checked class="hidden" th:checked="*{appreciation}">
-                        <label for="appreciation">赞赏</label>
+                        <label for="appreciation"  style="color: #7F007F">赞赏</label>
                     </div>
                     <div class="ui checkbox">
                         <input type="checkbox" id="commentated" name="commentated" checked  class="hidden" th:checked="*{commentated}">
-                        <label for="commentated">开启评论</label>
+                        <label for="commentated" style="color: #7F007F">开启评论</label>
                     </div>
+                </div>
+            </div>
+            <label  class="ui  basic label">博客描述</label>
+            <div class="required field m-margin-mini">
+                <div class="ui labeled input">
+                    <textarea type="text" name="description" placeholder="在此添加博客描述" th:text="*{description}"></textarea>
                 </div>
             </div>
             <div class="ui error message">
@@ -143,6 +149,13 @@
                 rules : [{
                     type : 'empty',
                     prompt : '请输入图片地址',
+                }]
+            },
+            description : {
+                identifier : 'description' ,
+                rules : [{
+                    type : 'empty',
+                    prompt : '请输入博客描述~此项为必填项',
                 }]
             }
         }

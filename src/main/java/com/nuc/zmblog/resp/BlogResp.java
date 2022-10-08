@@ -74,6 +74,8 @@ public class BlogResp  {
      * 创建时间
      */
 
+    private String description;
+
     private List<String > tags;
     private LocalDateTime create_time;
 

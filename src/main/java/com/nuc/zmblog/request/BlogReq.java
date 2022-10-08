@@ -65,6 +65,8 @@ public class BlogReq {
      */
     private boolean recommend;
 
+    private String description;
+
 
     private String type;
 
