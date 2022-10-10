@@ -17,7 +17,7 @@ public interface TypeMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    List<Type> selectByExample(Type type);
+    List<Type> selectByExample(TypeExample type);
 
     int deleteByExample(Type type);
 

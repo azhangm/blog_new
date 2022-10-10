@@ -40,7 +40,7 @@ class TypeServiceImplTest {
 //        System.out.println(typeMapper.selectByExample(null));
 //        Type type = new Type(null,"3",null);
 
-        System.out.println(typeService.listType());
+        System.out.println(typeService.listType(3));
 //        System.out.println(type);
     }
 
@@ -49,4 +49,5 @@ class TypeServiceImplTest {
         TypeReq req = new TypeReq(14300681365753856L, "修改");
         typeService.updateType(req);
     }
+
 }

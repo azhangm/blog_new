@@ -20,4 +20,6 @@ public interface TypeService {
 
     List<TypeResp> listType();
 
+    List<TypeResp> listType(Integer size);
+
 }

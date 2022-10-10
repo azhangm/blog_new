@@ -119,20 +119,6 @@ public class BlogController {
         BlogResp blogById = blogService.getBlogById(id);
         if (blogById == null) throw new NotFoundException("没有该博客");
         List<TagsResp> list = tagService.listTagsByBlogId(id);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
-        System.out.println(list);
         StringBuffer sb = new StringBuffer();
         for (TagsResp tagsResp : list) {
                 sb.append(tagsResp.getId());
