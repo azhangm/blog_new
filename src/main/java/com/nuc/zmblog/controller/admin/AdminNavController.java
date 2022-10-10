@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminNavController {
 
 
-
+    @GetMapping("/addTag")
+    public String addTag() {return  "admin/tags-input";}
 
     @GetMapping("/addType")
     public String addType() {

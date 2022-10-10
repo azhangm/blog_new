@@ -3,10 +3,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nuc.zmblog.mapper.TagsBlogMapper;
 import com.nuc.zmblog.mapper.TagsMapper;
-import com.nuc.zmblog.pojo.Tags;
-import com.nuc.zmblog.pojo.TagsBlog;
-import com.nuc.zmblog.pojo.TagsBlogExample;
-import com.nuc.zmblog.pojo.TagsExample;
+import com.nuc.zmblog.pojo.*;
 import com.nuc.zmblog.request.TagsReq;
 import com.nuc.zmblog.resp.PageResp;
 import com.nuc.zmblog.resp.TagsResp;
@@ -66,16 +63,7 @@ public class TagsServiceImpl implements TagsService {
 
     @Override
     public PageResp<TagsResp> listTags(Integer page , Integer size) {
-        PageHelper.startPage(page,size);
-        TagsExample example = new TagsExample();
-        example.setOrderByClause("update_time desc");
-        List<Tags> tagss = tagsMapper.selectByExample(null);
-        List<TagsResp> tagsResps = CopyUtils.copyList(tagss, TagsResp.class);
-        PageInfo<TagsResp> pageInfo = new PageInfo<>(tagsResps);
-        long total = pageInfo.getTotal();
-        boolean isFirst = page == 1;
-        boolean isLast = total < size ;
-        return new PageResp<>(pageInfo.getTotal(), pageInfo.getList(),page,isFirst,isLast);
+        return getTagsRespPageResp(page, size);
     }
 
     /**
@@ -87,6 +75,24 @@ public class TagsServiceImpl implements TagsService {
     public List<TagsResp> listTags() {
         List<Tags> tagss = tagsMapper.selectByExample(null);
         return CopyUtils.copyList(tagss, TagsResp.class);
+    }
+
+    @Override
+    public PageResp<TagsResp> listTag(Integer page, Integer size) {
+        return getTagsRespPageResp(page, size);
+    }
+
+    private PageResp<TagsResp> getTagsRespPageResp(Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        TagsExample example = new TagsExample();
+        example.setOrderByClause("update_time desc");
+        List<Tags> types = tagsMapper.selectByExample(null);
+        List<TagsResp> typeResps = CopyUtils.copyList(types, TagsResp.class);
+        PageInfo<TagsResp> pageInfo = new PageInfo<>(typeResps);
+        long total = pageInfo.getTotal();
+        boolean isFirst = page == 1;
+        boolean isLast = total < size ;
+        return new PageResp<>(pageInfo.getTotal(), pageInfo.getList(),page,isFirst,isLast);
     }
 
     @Override
@@ -113,6 +119,21 @@ public class TagsServiceImpl implements TagsService {
         }
         return listTags(ids.toString());
     }
+
+    @Override
+    public Integer saveTag(TagsReq req) {
+        Tags tags = new Tags();
+        if (req.getId() != null) return updateTags(req);
+        long l = snowFlake.nextId();
+        List<Tags> tagsList = tagsMapper.selectByName(req.getName());
+        if (tagsList.size() > 0) return 0;
+        tags.setId(l);
+        tags.setName(req.getName());
+//        属性名字必须一样
+//        BeanUtils.copyProperties(typeAddReq,type);
+        return tagsMapper.insert(tags);
+    }
+
     private List<Long> convertToList(String ids) {
         List<Long> list = new ArrayList<>();
         if (StringUtils.isEmptyOrWhitespace(ids)) return list;

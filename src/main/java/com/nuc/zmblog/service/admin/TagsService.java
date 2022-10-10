@@ -20,8 +20,12 @@ public interface TagsService {
 
     List<TagsResp> listTags();
 
+    PageResp<TagsResp> listTag(Integer page, Integer size);
+
     List<TagsResp> listTags(String ids);
 
 
     List<TagsResp> listTagsByBlogId(Long id);
+
+    Integer saveTag(TagsReq req);
 }

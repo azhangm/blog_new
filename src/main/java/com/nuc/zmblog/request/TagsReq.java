@@ -22,5 +22,5 @@ public class TagsReq {
      * 分类名称
      */
     @NotBlank(message = "分类名称不能为空")
-    private String typeName;
+    private String name;
 }

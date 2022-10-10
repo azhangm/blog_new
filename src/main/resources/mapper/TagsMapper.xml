@@ -130,7 +130,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectByName" resultType="com.nuc.zmblog.pojo.Tags" parameterType="java.lang.String">
+      select *
+      from tags
+        where name = #{typeName,jdbcType=VARCHAR};
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update tags
     <set>
       <if test="record.id != null">

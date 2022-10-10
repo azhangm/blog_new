@@ -30,4 +30,6 @@ public interface TagsMapper {
     int updateByPrimaryKeySelective(Tags record);
 
     int updateByPrimaryKey(Tags record);
+
+    List<Tags> selectByName(String typeName);
 }
