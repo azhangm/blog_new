@@ -132,13 +132,17 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.nuc.zmblog.pojo.TagsBlogExample" resultType="java.lang.Long">
-    select count(*) from tags_blog
+    select count(*)  from tags_blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
     <select id="selectByBlogId" resultType="java.lang.Long">
       select tags_id from tags_blog where blog_id = #{blogId};
+    </select>
+    <select id="countByTagId" resultType="java.lang.Long">
+      SELECT COUNT(*)  from tags_blog t
+        where tags_id = #{id,jdbcType=BIGINT}
     </select>
     <update id="updateByExampleSelective" parameterType="map">
     update tags_blog

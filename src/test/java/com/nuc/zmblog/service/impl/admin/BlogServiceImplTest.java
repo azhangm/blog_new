@@ -29,10 +29,17 @@ class BlogServiceImplTest {
     @Test
     public  void listBlogTest() {
 //       模拟组合查询
-        System.out.println(blogService.listBlog(1, 10, null));
+        System.out.println(blogService.listBlog(1, 2, null));
 
     }
 
+    @Test
+    public void testOrderByCreatTime() {
+//        临界测试
 
+        System.out.println(blogService.listRecommendByCreateTime(100).size());
 
+//        小数据测试
+        System.out.println(blogService.listRecommendByCreateTime(1).size());
+    }
 }

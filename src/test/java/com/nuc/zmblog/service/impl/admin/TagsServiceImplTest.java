@@ -37,7 +37,11 @@ class TagsServiceImplTest {
 
     @Test
     void testListTags() {
+//        小数据测试
         System.out.println(tagsService.listTags(3));
+//        大数据测试
+        System.out.println(tagsService.listTags(200));
+
     }
 
     @Test

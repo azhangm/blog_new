@@ -6,10 +6,7 @@ import com.nuc.zmblog.exception.NotFoundException;
 import com.nuc.zmblog.mapper.BlogMapper;
 import com.nuc.zmblog.mapper.TagsBlogMapper;
 import com.nuc.zmblog.mapper.TypeMapper;
-import com.nuc.zmblog.pojo.Blog;
-import com.nuc.zmblog.pojo.BlogExample;
-import com.nuc.zmblog.pojo.TagsBlog;
-import com.nuc.zmblog.pojo.Type;
+import com.nuc.zmblog.pojo.*;
 import com.nuc.zmblog.request.BlogReq;
 import com.nuc.zmblog.resp.BlogResp;
 import com.nuc.zmblog.resp.PageResp;
@@ -154,9 +151,10 @@ public class BlogServiceImpl implements BlogService {
         System.out.println("blogs" + "   " + blogs );
         for (Blog blog : blogs) {
             Long type_id = blog.getType_id();
-            System.out.println(type_id);
             Type type = typeMapper.selectByPrimaryKey(type_id);
             blog.setType(type.getName());
+            List<TagsResp> list = tagsService.listTagsByBlogId(blog.getId());
+            blog.setList(list);
         }
         List<BlogResp> blogResps = CopyUtils.copyList(blogs, BlogResp.class);
 
@@ -173,6 +171,15 @@ public class BlogServiceImpl implements BlogService {
             blogResp.setPublished(published);
             blogResp.setRecommend(recommend);
 
+
+            StringBuffer ids = new StringBuffer();
+            for (TagsResp tags: blog.getList()) {
+                ids.append(tags.getId());
+                if (blog.getList().indexOf(tags) < blog.getList().size() - 1)
+                    ids.append(",");
+            }
+            blogResp.setTagIds(ids.toString());
+
         }
 
         PageInfo<BlogResp> pageInfo = new PageInfo<>(blogResps);
@@ -182,6 +189,58 @@ public class BlogServiceImpl implements BlogService {
         return new PageResp<>(pageInfo.getTotal(), pageInfo.getList(),page,isFirst,isLast);
     }
 
+    /**
+     * 推荐列表创建时间
+     *
+     * @return {@link List}<{@link BlogResp}>
+     */
+    @Override
+    public List<BlogResp> listRecommendByCreateTime(Integer size) {
+        BlogExample blogExample = new BlogExample();
+        BlogExample.Criteria criteria = blogExample.createCriteria();
+        criteria.andRecommendEqualTo(1);
+        blogExample.setLimit(size);
+        blogExample.setOrderByClause("create_time desc");
+        List<Blog> blogs = blogMapper.selectByExample(blogExample);
 
+        for (Blog blog : blogs) {
+            Long type_id = blog.getType_id();
+            Type type = typeMapper.selectByPrimaryKey(type_id);
+            blog.setType(type.getName());
+            List<TagsResp> list = tagsService.listTagsByBlogId(blog.getId());
+            blog.setList(list);
+        }
+        List<BlogResp> blogResps = CopyUtils.copyList(blogs, BlogResp.class);
+        CopyUtils.copyList(blogs, BlogResp.class);
+        for (int i = 0; i < blogs.size(); i++) {
+            Blog blog = blogs.get(i);
+            boolean appreciation = blog.getAppreciation() == 1;
+            boolean commentated = blog.getCommentated() == 1;
+            boolean published = blog.getPublished() == 1;
+            boolean recommend = blog.getRecommend() == 1;
+            BlogResp blogResp = blogResps.get(i);
+            blogResp.setAppreciation(appreciation);
+            blogResp.setCommentated(commentated);
+            blogResp.setPublished(published);
+            blogResp.setRecommend(recommend);
 
+//            System.out.println("appreciation : " + blogResp.isAppreciation());
+//            System.out.println("commentated : " + blogResp.isCommentated());
+//            System.out.println("published : " + blogResp.isPublished());
+//            System.out.println("recommend : " + blogResp.isRecommend());
+
+            StringBuffer ids = new StringBuffer();
+            for (TagsResp tags: blog.getList()) {
+                ids.append(tags.getId());
+                if (blog.getList().indexOf(tags) < blog.getList().size() - 1)
+                    ids.append(",");
+            }
+            blogResp.setTagIds(ids.toString());
+        }
+        return blogResps;
+    }
+        @Override
+        public Long countBlog() {
+        return blogMapper.countByExample(null);
+        }
 }

@@ -32,4 +32,6 @@ public interface TagsBlogMapper {
     int updateByPrimaryKey(TagsBlog record);
 
     List<Long> selectByBlogId(Long blogId);
+
+    Long countByTagId(Long id);
 }

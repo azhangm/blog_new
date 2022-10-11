@@ -3,6 +3,10 @@ package com.nuc.zmblog.pojo;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+
+import com.nuc.zmblog.resp.BlogResp;
+import com.nuc.zmblog.resp.TagsResp;
 import lombok.Data;
 
 /**
@@ -81,7 +85,7 @@ public class Blog implements Serializable {
 
     private String type;
 
-
+    private List<TagsResp> list;
     private static final long serialVersionUID = 1L;
 
     @Override

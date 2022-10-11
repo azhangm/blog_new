@@ -5,6 +5,8 @@ import com.nuc.zmblog.request.BlogReq;
 import com.nuc.zmblog.resp.PageResp;
 import com.nuc.zmblog.resp.BlogResp;
 
+import java.util.List;
+
 /**
  * 博客服务
  *
@@ -55,5 +57,8 @@ public interface BlogService {
      * @return {@link PageResp}<{@link BlogResp}>
      */
     PageResp<BlogResp> listBlog(Integer page, Integer size , BlogReq blogReq);
-    
+
+    List<BlogResp> listRecommendByCreateTime(Integer size);
+
+    Long countBlog();
 }

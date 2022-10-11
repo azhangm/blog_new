@@ -19,37 +19,40 @@
                             <h2 class="ui teal header">博客</h2>
                         </div>
                         <div class="column right aligned stackable ">
-                            共 <h2 class="ui orange header m-inline-block m-text-thin">14</h2>篇
+                            共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${count}">14</h2>篇
                         </div>
                     </div>
                 </div>
                 <!--                列表-->
                 <div class="ui attached  segment">
-                    <div class="ui mobile reversed stackable padded segment">
-                                    <div class="ui grid">
+                    <div class="ui mobile reversed stackable padded segment" th:each="blog : ${page.list}">
+                                    <div class="ui grid"  >
                                         <div class=" eleven wide column">
                                             <div class="ui header">
-                                                <h3 class="ui header link"> 文章标题</h3>
+                                                <h3 class="ui header link" >
+                                                <a th:text="${blog.titile}" class="m-black"></a>
+
+                                                </h3>
                                             </div>
-                                            <p>我是文章的内容</p>
+                                            <p th:text="${blog.description}">我是文章的内容</p>
                                             <div class="ui grid">
                                                 <div class="eleven wide column mini">
                                                     <div class="ui horizontal link list">
                                                         <div class="item">
-                                                            <img class="ui avatar image" th:src="@{/image/wechat.jpg}"
+                                                            <img class="ui avatar image" th:src="@{/image/logo.png}"
                                                                  style="width: 40px" height="40px" alt="我的二维码" >
-                                                            <div class="content"><a href="#" class="header">zm</a></div>
+                                                            <div class="content"><a href="#" class="header">dajuancai</a></div>
                                                         </div>
                                                         <div class="item">
-                                                            <i class="calendar icon"></i>2022-9-01
+                                                            <i class="calendar icon"></i><span th:text="${blog.update_time}"></span>
                                                         </div>
                                                         <div class="item">
-                                                            <i class="eye icon"></i> 1234
+                                                            <i class="eye icon"></i> <span th:text="${blog.views}"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="five wide column right aligned">
-                                                    <a href="#" target="_blank" class="ui teal basic mini m-text-thin label">
+                                                    <a href="#" target="_blank" class="ui teal basic mini m-text-thin label" th:text="${blog.type}">
                                                         打开
                                                     </a>
                                                 </div>
@@ -57,7 +60,7 @@
                                         </div>
                                         <div class="ui five wide column">
                                             <a href="#" target="_blank">
-                                                <img style="width: 200px;height: 150px"   th:src="@{/image/logo.png}" alt="">
+                                                <img style="width: 200px;height: 150px"   th:src="${blog.first_picture}" th:alt="${blog.titile}">
                                             </a>
                                         </div>
                                     </div>
@@ -69,10 +72,12 @@
                 <div class="ui bottom attached segment">
                     <div class="ui grid two column middle aligned">
                         <div class="column ">
-                            <a href="" class="ui teal basic mini button">上一页</a>
+                            <a th:href="@{/(page=${page.nowPage} - 1)}" th:unless="${page.isFirst}" class="item">上一页</a>
+
                         </div>
                         <div class="column right aligned">
-                            <a href="" class="ui teal basic mini button">下一页</a>
+                            <a th:href="@{/(page=${page.nowPage} - 1)}" th:unless="${page.isLast}" class="item">上一页</a>
+
                         </div>
                     </div>
                 </div>
@@ -93,27 +98,9 @@
 
                     <div class="ui segment">
                         <div class="ui fluid vertical menu">
-                            <a href="#" class="item">
-                                学习日志
-                                <div class="ui teal left pointing basic label">13</div>
-                            </a>
-                        </div>
-                        <div class="ui fluid vertical menu">
-                            <a href="#" class="item">
-                                学习日志
-                                <div class="ui teal left pointing basic label">13</div>
-                            </a>
-                        </div>
-                        <div class="ui fluid vertical menu">
-                            <a href="#" class="item">
-                                学习日志
-                                <div class="ui teal left pointing basic label">13</div>
-                            </a>
-                        </div>
-                        <div class="ui fluid vertical menu">
-                            <a href="#" class="item">
-                                学习日志
-                                <div class="ui teal left pointing basic label">13</div>
+                            <a href="#" class="item"  th:each="type : ${types}">
+                                <span th:text="${type.name}"></span>
+                                <div class="ui teal left pointing basic label" th:text="${type.blogSize}">13</div>
                             </a>
                         </div>
                     </div>
@@ -131,46 +118,11 @@
                     </div>
 
                     <div class="ui  teal segment">
-                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
-                            方法论
-                            <div class="detail">23</div>
+                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-right" th:each="tag : ${tags}">
+                            <span th:text="${tag.name}"></span>
+                            <div class="detail" th:text="${tag.blogSize}">23</div>
                         </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label m-margin-mini">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
-                        <a href="#" target="_blank" class="ui teal left pointing basic label">
-                            方法论
-                            <div class="detail">23</div>
-                        </a>
+
                     </div>
                 </div>
                 <div class="ui  segments m-margin-top">
@@ -182,26 +134,8 @@
                         </div>
                     </div>
 
-                    <div class="ui segment">
-                        <a href="#" target="_blank" class="m-black m-text-thin">hello world</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="#" target="_blank" class="m-black m-text-thin">hello world</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="#" target="_blank" class="m-black m-text-thin">hello world</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="#" target="_blank" class="m-black m-text-thin" >hello world</a>
+                    <div class="ui segment" th:each="blog : ${recommend}">
+                        <a href="#" target="_blank" class="m-black m-text-thin" th:text="${blog.titile}">hello world</a>
                     </div>
                 </div>
                 <h4 class="ui horizontal divider header m-margin-top">

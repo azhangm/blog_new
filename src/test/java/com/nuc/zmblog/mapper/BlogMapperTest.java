@@ -21,4 +21,12 @@ class BlogMapperTest {
     void selectByExample() {
         System.out.println(blogMapper.selectByExample(new BlogExample()));
     }
+
+    /**
+     * 测试计数类型id
+     */
+    @Test
+    void testCountByTypeId () {
+        System.out.println(blogMapper.countByTypeId(14362175859724288L));
+    }
 }

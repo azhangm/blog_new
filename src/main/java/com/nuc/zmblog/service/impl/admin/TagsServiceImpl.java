@@ -109,6 +109,13 @@ public class TagsServiceImpl implements TagsService {
         List<Tags> tags = tagsMapper.selectByExample(example);
         return CopyUtils.copyList(tags, TagsResp.class);
     }
+
+    /**
+     * 标签通过博客id列表
+     *
+     * @param id id
+     * @return {@link List}<{@link TagsResp}>
+     */
     @Override
     public List<TagsResp> listTagsByBlogId(Long id) {
         TagsBlogExample example = new TagsBlogExample();
@@ -151,7 +158,7 @@ public class TagsServiceImpl implements TagsService {
             Queue<TagInfo> queue = new PriorityQueue<>(new TagInfo());
             List<TagsResp> tagResps = listTags();
             for (TagsResp tagResp : tagResps) {
-                long l1 = tagsBlogMapper.countByExample(null);
+                long l1 = tagsBlogMapper.countByTagId(tagResp.getId());
                 TagInfo tagInfo = new TagInfo(tagResp.getId(), l1,tagResp.getName());
                 queue.add(tagInfo);
             }
@@ -165,8 +172,7 @@ public class TagsServiceImpl implements TagsService {
         List<TagsResp> tagResps = listTags();
         Queue<TagInfo> queue = new PriorityQueue<>(new TagInfo());
         for (TagsResp tagResp : tagResps) {
-            criteria.andTagsIdEqualTo(tagResp.getId());
-            long l1 = tagsBlogMapper.countByExample(example);
+            long l1 = tagsBlogMapper.countByTagId(tagResp.getId());
             TagInfo tagInfo = new TagInfo(tagResp.getId(), l1,tagResp.getName());
             queue.add(tagInfo);
         }

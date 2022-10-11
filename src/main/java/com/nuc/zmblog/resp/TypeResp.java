@@ -16,5 +16,5 @@ public class TypeResp {
 
     private String name;
 
-    private Integer blogSize;
+    private Long blogSize;
 }
