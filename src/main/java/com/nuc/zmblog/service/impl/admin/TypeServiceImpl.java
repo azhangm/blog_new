@@ -129,8 +129,8 @@ public class TypeServiceImpl implements TypeService {
             Queue<TypeInfo> queue = new PriorityQueue<>(new TypeInfo());
             List<TypeResp> typeResps = listType();
             for (TypeResp typeResp : typeResps) {
-                long l1 = blogMapper.countByExample(null);
-                TypeInfo typeInfo = new TypeInfo(typeResp.getId(), l1,typeResp.getName());
+                Long blogSize =blogMapper.countByExample(null);
+                TypeInfo typeInfo = new TypeInfo(typeResp.getId(),  blogSize,typeResp.getName());
                 queue.add(typeInfo);
             }
             while (!queue.isEmpty()) {
@@ -144,12 +144,14 @@ public class TypeServiceImpl implements TypeService {
         Queue<TypeInfo> queue = new PriorityQueue<>(new TypeInfo());
         for (TypeResp typeResp : typeResps) {
             criteria.andType_idEqualTo(typeResp.getId());
-            long l1 = blogMapper.countByExample(example);
-            TypeInfo typeInfo = new TypeInfo(typeResp.getId(), l1,typeResp.getName());
+            Integer blogSize = blogMapper.countByTypeId(typeResp.getId());
+            Long b = Long.valueOf(blogSize);
+            TypeInfo typeInfo = new TypeInfo(typeResp.getId(), b,typeResp.getName());
             queue.add(typeInfo);
         }
         ArrayList<TypeInfo> ans = new ArrayList<>();
         for (int i = 0; i < n; i++) {
+            assert queue.peek() != null;
             System.out.println(queue.peek().blogSize);
             ans.add(queue.poll());
         }

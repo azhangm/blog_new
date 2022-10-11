@@ -37,7 +37,7 @@ class TagsServiceImplTest {
 
     @Test
     void testListTags() {
-
+        System.out.println(tagsService.listTags(3));
     }
 
     @Test

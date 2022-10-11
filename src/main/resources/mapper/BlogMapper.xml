@@ -224,6 +224,10 @@
   <select id="selectAll" resultType="com.nuc.zmblog.pojo.Blog">
     select * from blog;
   </select>
+  <select id="countByTypeId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select count(*) from blog blog
+     where type_id = #{id,jdbcType=Long}
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update blog blog
     <set>

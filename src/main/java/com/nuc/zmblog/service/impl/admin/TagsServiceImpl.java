@@ -1,21 +1,25 @@
 package com.nuc.zmblog.service.impl.admin;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nuc.zmblog.mapper.BlogMapper;
 import com.nuc.zmblog.mapper.TagsBlogMapper;
 import com.nuc.zmblog.mapper.TagsMapper;
 import com.nuc.zmblog.pojo.*;
 import com.nuc.zmblog.request.TagsReq;
 import com.nuc.zmblog.resp.PageResp;
 import com.nuc.zmblog.resp.TagsResp;
+import com.nuc.zmblog.resp.TypeResp;
 import com.nuc.zmblog.service.admin.TagsService;
 import com.nuc.zmblog.utils.CopyUtils;
 import com.nuc.zmblog.utils.SnowFlake;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TagsServiceImpl implements TagsService {
@@ -23,8 +27,8 @@ public class TagsServiceImpl implements TagsService {
     @Resource
     private TagsMapper tagsMapper;
 
-    @Resource SnowFlake snowFlake;
-
+    @Resource
+    SnowFlake snowFlake;
 
     @Resource
     private TagsBlogMapper tagsBlogMapper;
@@ -134,6 +138,47 @@ public class TagsServiceImpl implements TagsService {
         return tagsMapper.insert(tags);
     }
 
+    @Override
+    public List<TagsResp> listTags(Integer size) {
+        List<TagInfo> list = topN(size);
+        return CopyUtils.copyList(list, TagsResp.class);
+    }
+
+    private List<TagInfo> topN(Integer size) {
+        long l = tagsMapper.countByExample(null);
+        if (l <= size) {
+            ArrayList<TagInfo> ans = new ArrayList<>();
+            Queue<TagInfo> queue = new PriorityQueue<>(new TagInfo());
+            List<TagsResp> tagResps = listTags();
+            for (TagsResp tagResp : tagResps) {
+                long l1 = tagsBlogMapper.countByExample(null);
+                TagInfo tagInfo = new TagInfo(tagResp.getId(), l1,tagResp.getName());
+                queue.add(tagInfo);
+            }
+            while (!queue.isEmpty()) {
+                ans.add(queue.poll());
+            }
+            return ans;
+        }
+        TagsBlogExample example = new TagsBlogExample();
+        TagsBlogExample.Criteria criteria = example.createCriteria();
+        List<TagsResp> tagResps = listTags();
+        Queue<TagInfo> queue = new PriorityQueue<>(new TagInfo());
+        for (TagsResp tagResp : tagResps) {
+            criteria.andTagsIdEqualTo(tagResp.getId());
+            long l1 = tagsBlogMapper.countByExample(example);
+            TagInfo tagInfo = new TagInfo(tagResp.getId(), l1,tagResp.getName());
+            queue.add(tagInfo);
+        }
+        ArrayList<TagInfo> ans = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            assert queue.peek() != null;
+            System.out.println(queue.peek().blogSize);
+            ans.add(queue.poll());
+        }
+        return ans;
+    }
+
     private List<Long> convertToList(String ids) {
         List<Long> list = new ArrayList<>();
         if (StringUtils.isEmptyOrWhitespace(ids)) return list;
@@ -143,4 +188,19 @@ public class TagsServiceImpl implements TagsService {
         }
         return list;
     }
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    private static class TagInfo implements Comparator<TagsServiceImpl.TagInfo> {
+        Long id;
+        Long blogSize;
+        String name;
+
+
+        @Override
+        public int compare(TagInfo o1, TagInfo o2) {
+            return (int) (o2.blogSize - o1.blogSize);
+        }
+    }
+
 }

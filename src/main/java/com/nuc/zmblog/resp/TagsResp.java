@@ -13,4 +13,5 @@ public class TagsResp {
 
     private String name;
 
+    private Long blogSize;
 }

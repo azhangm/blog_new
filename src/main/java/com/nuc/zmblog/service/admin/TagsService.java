@@ -28,4 +28,6 @@ public interface TagsService {
     List<TagsResp> listTagsByBlogId(Long id);
 
     Integer saveTag(TagsReq req);
+
+    List<TagsResp> listTags(Integer size);
 }

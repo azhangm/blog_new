@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Param;
 public interface BlogMapper {
     long countByExample(BlogExample example);
 
+    Integer countByTypeId(Long id);
+
     int deleteByExample(BlogExample example);
 
     int deleteByPrimaryKey(Long id);
