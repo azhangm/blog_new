@@ -2,6 +2,7 @@ package com.nuc.zmblog.service.impl.admin;
 
 import com.nuc.zmblog.exception.NotFoundException;
 import com.nuc.zmblog.request.BlogReq;
+import com.nuc.zmblog.resp.BlogResp;
 import com.nuc.zmblog.service.admin.BlogService;
 import com.nuc.zmblog.service.admin.TagsService;
 import org.junit.jupiter.api.Test;
@@ -41,5 +42,11 @@ class BlogServiceImplTest {
 
 //        小数据测试
         System.out.println(blogService.listRecommendByCreateTime(1).size());
+    }
+
+    @Test
+    public void testGetBlogByID() {
+        BlogResp blogById = blogService.getBlogById(14611518768943104L);
+        System.out.println(blogById);
     }
 }

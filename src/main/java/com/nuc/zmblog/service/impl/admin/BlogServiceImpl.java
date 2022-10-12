@@ -14,6 +14,7 @@ import com.nuc.zmblog.resp.TagsResp;
 import com.nuc.zmblog.service.admin.BlogService;
 import com.nuc.zmblog.service.admin.TagsService;
 import com.nuc.zmblog.utils.CopyUtils;
+import com.nuc.zmblog.utils.MarkdownUtils;
 import com.nuc.zmblog.utils.SnowFlake;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,7 @@ public class BlogServiceImpl implements BlogService {
         if (blogAddReq.isAppreciation()) blog.setAppreciation(1);
         if (blogAddReq.isPublished()) blog.setPublished(1);
         if (blogAddReq.isRecommend()) blog.setRecommend(1);
+        if (blogAddReq.getFlag().equals("")) blog.setFlag("原创");
         blog.setViews(0L);
         blog.setCreate_time(LocalDateTime.now());
         blog.setUpdate_time(LocalDateTime.now());
@@ -106,6 +108,8 @@ public class BlogServiceImpl implements BlogService {
             if (blog.getCommentated() == 1) copy.setCommentated(true);
             Type type = typeMapper.selectByPrimaryKey(blog.getType_id());
             copy.setType(type.getName());
+            List<TagsResp> list = tagsService.listTagsByBlogId(blog.getId());
+            copy.setTags(list);
         }
         return copy;
     }
@@ -243,4 +247,27 @@ public class BlogServiceImpl implements BlogService {
         public Long countBlog() {
         return blogMapper.countByExample(null);
         }
+
+    @Override
+    public BlogResp getAndConvert(Long id) {
+        Blog blog = blogMapper.selectByPrimaryKey(id);
+        if (blog == null) throw new NotFoundException("博客不存在~");
+        boolean appreciation = blog.getAppreciation() == 1;
+        boolean commentated = blog.getCommentated() == 1;
+        boolean published = blog.getPublished() == 1;
+        boolean recommend = blog.getRecommend() == 1;
+        String content = blog.getContent();
+        String s = MarkdownUtils.markdownToHtmlExtensions(content);
+        BlogResp copy = CopyUtils.copy(blog, BlogResp.class);
+        copy.setAppreciation(appreciation);
+        copy.setCommentated(commentated);
+        copy.setPublished(published);
+        copy.setRecommend(recommend);
+        copy.setContent(s);
+        Type type = typeMapper.selectByPrimaryKey(blog.getType_id());
+        copy.setType(type.getName());
+        List<TagsResp> list = tagsService.listTagsByBlogId(blog.getId());
+        copy.setTags(list);
+        return copy;
+    }
 }

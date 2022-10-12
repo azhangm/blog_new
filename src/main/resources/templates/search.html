@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragments :: head(~{::title})">
-    <title>首页</title>
+    <title>搜索结果</title>
 </head>
 <body>
 <!--导航-->
@@ -30,7 +30,7 @@
                                         <div class=" eleven wide column">
                                             <div class="ui header">
                                                 <h3 class="ui header link" >
-                                                <a th:text="${blog.titile}" class="m-black" th:href="@{/blog(id=${blog.id})}" ></a>
+                                                <a   th:text="${blog.titile}" class="m-black" ></a>
 
                                                 </h3>
                                             </div>
@@ -52,14 +52,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="five wide column right aligned">
-                                                    <a href="#" th:href="@{/blog(id=${blog.id})}" target="_blank" class="ui teal basic mini m-text-thin label" th:text="${blog.type}">
-                                                        打开
+                                                    <a href="#" th:href="@{/blog(id=${blog.id})}"  class="ui teal basic mini m-text-thin label" th:text="${blog.type}">
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="ui five wide column">
-                                            <a href="#" target="_blank" th:href="@{/blog(id=${blog.id})}">
+                                            <a href="#" th:href="@{/blog}" target="_blank">
                                                 <img style="width: 200px;height: 150px"   th:src="${blog.first_picture}" th:alt="${blog.titile}">
                                             </a>
                                         </div>

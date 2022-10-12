@@ -58,7 +58,24 @@ public interface BlogService {
      */
     PageResp<BlogResp> listBlog(Integer page, Integer size , BlogReq blogReq);
 
+    /**
+     * 推荐列表创建时间
+     *
+     * @param size 大小
+     * @return {@link List}<{@link BlogResp}>
+     */
     List<BlogResp> listRecommendByCreateTime(Integer size);
 
+    /**
+     * 数博客
+     *
+     * @return {@link Long}
+     */
     Long countBlog();
+
+
+
+
+
+    BlogResp getAndConvert(Long id);
 }

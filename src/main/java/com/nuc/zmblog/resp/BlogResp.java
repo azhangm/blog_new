@@ -76,7 +76,7 @@ public class BlogResp  {
 
     private String description;
 
-    private List<String > tags;
+    private List<TagsResp> tags;
 
 
     private LocalDateTime create_time;
