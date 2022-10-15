@@ -76,7 +76,7 @@
 
                         </div>
                         <div class="column right aligned">
-                            <a th:href="@{/(page=${page.nowPage} - 1)}" th:unless="${page.isLast}" class="item">上一页</a>
+                            <a th:href="@{/(page=${page.nowPage} + 1)}" th:unless="${page.isLast}" class="item">下一页</a>
 
                         </div>
                     </div>
